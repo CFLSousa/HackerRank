@@ -9,11 +9,7 @@ import java.util.regex.*;
 public class Solution {
 
     static long aVeryBigSum(long[] ar) {
-        long sum = 0L;
-        for(int i = 0; i < ar.length; i++){
-            sum = sum + ar[i];
-        }
-        return sum;
+        return Arrays.stream(ar).sum();
     }
 
     private static final Scanner scanner = new Scanner(System.in);

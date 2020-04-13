@@ -1,55 +1,63 @@
 import java.io.*;
 import java.math.*;
+import java.security.*;
 import java.text.*;
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
 import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
-public class Solution {
+class Result {
 
-    static int[] gradingStudents(int[] grades) {
-        int[] result = new int[grades.length];
-        for(int i = 0; i < grades.length; i++){
-            if(grades[i] >= MINIMUM_GRADE){
-                int remainder = grades[i] % 5;
-                //distance <= 2 from grade[i] to next multiple of 5
-                if(remainder >= 3)
-                    result[i] = (grades[i] - remainder) + 5;
-                else
-                    result[i] = grades[i];
-            }
+    public static final int MINIMUM_GRADE=38;
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        int gradesSize=grades.size();
+        List<Integer> roundedGrades=new ArrayList<Integer>(gradesSize);
+
+        for(int i=0;i<gradesSize;i++){
+            //round if distance<=2 from ith grade to next multiple of 5
+            if(grades.get(i)>=MINIMUM_GRADE && grades.get(i)%5>=3)
+                roundedGrades.add(grades.get(i)-(grades.get(i)%5)+5);
             else
-                result[i] = grades[i];
+                roundedGrades.add(grades.get(i));
         }
-        return result;
+
+        return roundedGrades;
     }
 
-    private static final Scanner scan = new Scanner(System.in);
-    public static final int MINIMUM_GRADE = 38;
+}
 
+public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int n = Integer.parseInt(scan.nextLine().trim());
+        int gradesCount = Integer.parseInt(bufferedReader.readLine().trim());
 
-        int[] grades = new int[n];
-
-        for (int gradesItr = 0; gradesItr < n; gradesItr++) {
-            int gradesItem = Integer.parseInt(scan.nextLine().trim());
-            grades[gradesItr] = gradesItem;
-        }
-
-        int[] result = gradingStudents(grades);
-
-        for (int resultItr = 0; resultItr < result.length; resultItr++) {
-            bw.write(String.valueOf(result[resultItr]));
-
-            if (resultItr != result.length - 1) {
-                bw.write("\n");
+        List<Integer> grades = IntStream.range(0, gradesCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().replaceAll("\\s+$", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-        }
+        })
+            .map(String::trim)
+            .map(Integer::parseInt)
+            .collect(toList());
 
-        bw.newLine();
+        List<Integer> result = Result.gradingStudents(grades);
 
-        bw.close();
+        bufferedWriter.write(
+            result.stream()
+                .map(Object::toString)
+                .collect(joining("\n"))
+        );
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }

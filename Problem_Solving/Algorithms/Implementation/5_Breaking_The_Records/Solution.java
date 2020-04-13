@@ -9,23 +9,22 @@ import java.util.regex.*;
 public class Solution {
 
     static int[] breakingRecords(int[] scores) {
+        
+        int sLen=scores.length;
         int maxPoints = scores[0];
-        int minPoints = scores[0];
-        int maxCounter = 0;
-        int minCounter = 0;
+        int minPoints = maxPoints;
         int[] recordTimes = new int[2];
-        for(int i = 1; i < scores.length; i++){
+
+        for(int i = 1; i < sLen; i++){
             if(scores[i] > maxPoints){
                 maxPoints = scores[i];
-                maxCounter++;
+                recordTimes[0]++;
             }
             else if(scores[i] < minPoints){
                 minPoints = scores[i];
-                minCounter++;
+                recordTimes[1]++;
             }
         }
-        recordTimes[0] = maxCounter;
-        recordTimes[1] = minCounter;
         return recordTimes;
     }
 

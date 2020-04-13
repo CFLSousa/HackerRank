@@ -9,15 +9,16 @@ import java.util.regex.*;
 public class Solution {
 
     static int birthdayCakeCandles(int[] ar) {
-        int maxVal = 0;
-        int candlesQty = 0;
-        for(int i = 0; i < ar.length; i++){
-            if(ar[i] > maxVal)
-                maxVal = ar[i];
-        }
-        for(int j = 0; j < ar.length; j++){
-            if(ar[j] == maxVal)
-                candlesQty = candlesQty + 1;
+        int maxVal=0;
+        int candlesQty=0;
+        int arLen=ar.length;
+        for(int i=0;i<arLen;i++){
+            if(ar[i]>maxVal){
+                maxVal=ar[i];
+                candlesQty=1;
+            }
+            else if(ar[i]==maxVal)
+                candlesQty++;
         }
         return candlesQty;
     }

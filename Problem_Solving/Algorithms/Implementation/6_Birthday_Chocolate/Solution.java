@@ -13,23 +13,34 @@ import static java.util.stream.Collectors.toList;
 public class Solution {
 
     static int birthday(List<Integer> s, int d, int m) {
-        int counterSolutions = 0;
-        int suming = 0;
-        int progressionHelpCounter = 0;
-        if(m > s.size())
-            return counterSolutions;
-        else {
-            while((s.size())-progressionHelpCounter>=m) {
-                for(int i=progressionHelpCounter; i<m+progressionHelpCounter; i++){
-                    suming=suming+s.get(i);
+
+        int solutions = 0;
+        int sLen = s.size();
+
+        if(m <= sLen){
+            //Sum progression in each list position
+            for(int i=1;i<sLen;i++)
+                s.set(i,s.get(i-1)+s.get(i));
+                
+            //If month m is equal to list s size
+            //and the sum of the m elements in s is equal to day d,
+            //there is only one solution.
+            //
+            //If the sum of the m elements in list s is different from day d,
+            //there is no solution
+            if(m==sLen && s.get(m-1)==d)
+                solutions++;
+            else if(sLen>m){
+                for(int i=m;i<=sLen;i++){
+                    //Each possible combination of m squares is verified,
+                    //Each combination equalizing day d is a solution
+                    if((i>m && s.get(i-1)-s.get(i-1-m)==d) || 
+                            (i==m && s.get(i-1)==d))
+                        solutions++;
                 }
-                if(suming==d)
-                    counterSolutions++;
-                progressionHelpCounter++;
-                suming=0;
             }
         }
-        return counterSolutions;
+        return solutions;
     }
 
     public static void main(String[] args) throws IOException {

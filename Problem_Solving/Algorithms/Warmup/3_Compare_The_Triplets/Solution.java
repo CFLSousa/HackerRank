@@ -13,21 +13,29 @@ import static java.util.stream.Collectors.toList;
 public class Solution {
 
     static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
-        List<Integer> c = new ArrayList<Integer>();
-        int aRes = 0;
-        int bRes = 0;
-        int i = 0;
-        do {
-            if(a.get(i) > b.get(i))
-                aRes++;
-            if (a.get(i) < b.get(i))
-                bRes++;
-            i++;
-        }while(i < a.size());
-        c.add(aRes);
-        c.add(bRes);
-        return c;
+        List<Integer> results=new ArrayList<Integer>();
+        int aliceScore=0;
+        int bobScore=0;
+        int i=0;
+        int aliceCategory=0;
+        int bobCategory=0;
+        int numberOfCategories=a.size();
 
+        do {
+            aliceCategory=a.get(i);
+            bobCategory=b.get(i);
+
+            if(aliceCategory>bobCategory)
+                aliceScore++;
+            else if (aliceCategory<bobCategory)
+                bobScore++;
+
+            i++;
+        }while(i<numberOfCategories);
+
+        results.add(aliceScore);
+        results.add(bobScore);
+        return results;
     }
 
     public static void main(String[] args) throws IOException {

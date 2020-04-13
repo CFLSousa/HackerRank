@@ -13,19 +13,22 @@ import static java.util.stream.Collectors.toList;
 public class Solution {
 
     static int migratoryBirds(List<Integer> arr) {
-        int[] counters = new int[5];
-        for(Integer birdType:arr){
+
+        int countersLen=5;
+        int maxCounter=0;
+        int maxCounterIndex=0;
+        int[] counters=new int[countersLen];
+
+        for(Integer birdType:arr)
             counters[(birdType-1)]++;
-        }
-        int maxBirdTypeCounter=0;
-        int maxIndexBirdType=0;
-        for(int i=0;i<counters.length;i++){
-            if(counters[i]>maxBirdTypeCounter){
-                maxBirdTypeCounter=counters[i];
-                maxIndexBirdType=i;
+
+        for(int i=0;i<countersLen;i++){
+            if(counters[i]>maxCounter){
+                maxCounter=counters[i];
+                maxCounterIndex=i;
             }
         }
-        return maxIndexBirdType+1;
+        return maxCounterIndex+1;
     }
 
     public static void main(String[] args) throws IOException {

@@ -9,13 +9,17 @@ import java.util.regex.*;
 public class Solution {
 
     static int divisibleSumPairs(int n, int k, int[] ar) {
+
         int counterPairs = 0;
+
         for(int i=0;i<=(n-2);i++){
             for(int j=i+1;j<=(n-1);j++){
+
                 if(((ar[i]+ar[j])%k)==0)
                     counterPairs++;
             }
         }
+        
         return counterPairs;
     }
 

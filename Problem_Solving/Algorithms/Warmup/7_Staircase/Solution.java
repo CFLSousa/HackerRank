@@ -9,16 +9,15 @@ import java.util.regex.*;
 public class Solution {
 
     static void staircase(int n) {
-        for(int i = 1; i <= n; i++){
-            for(int j = 0; j < (n-i); j++){
-                System.out.print(" ");
-            }
-            for(int k = (n-i); k < n; k++){
-                System.out.print("#");
-            }
-            System.out.print("\n");
+        StringBuilder sb=new StringBuilder();
+        String format="%"+n+"s%n";
+        for(int i=1;i<=n;i++){
+            sb.append("#");
+            if(i<n)
+                System.out.printf(format,sb.toString());
+            else
+                System.out.printf("%"+n+"s",sb.toString());
         }
-
     }
 
     private static final Scanner scanner = new Scanner(System.in);

@@ -8,18 +8,21 @@ import java.util.regex.*;
 
 public class Solution {
 
-    static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges) {
-        int appleCounter = 0;
-        int orangeCounter = 0;
-        for(int app : apples){
+    static void countApplesAndOranges(int s, int t, int a, int b, 
+            int[] apples, int[] oranges) {
+        int appleCounter=0;
+        int orangeCounter=0;
+
+        for(int app:apples){
             if((a+app)>=s && (a+app)<=t)
                 appleCounter++;
         }
-        for(int or : oranges){
+        for(int or:oranges){
             if((b+or)>=s && (b+or)<=t)
                 orangeCounter++;
         }
-        System.out.print(appleCounter + "\n" + orangeCounter);
+        
+        System.out.print(appleCounter+"\n"+orangeCounter);
     }
 
     private static final Scanner scanner = new Scanner(System.in);

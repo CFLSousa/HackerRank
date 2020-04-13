@@ -9,26 +9,32 @@ import java.util.regex.*;
 public class Solution {
 
     static void plusMinus(int[] arr) {
-        double posNums = 0.0;
-        double negNums = 0.0;
-        double zeroNums = 0.0;
-        double posFraction = 0.0;
-        double negFraction = 0.0;
-        double zeroFraction = 0.0;
-        DecimalFormat df = new DecimalFormat("#.######");
-        df.setRoundingMode(RoundingMode.CEILING);
-        for(int i = 0; i < arr.length; i++){
-            if(arr[i] == 0)
+        double posNums=0.0;
+        double negNums=0.0;
+        double zeroNums=0.0;
+        double posFraction=0.0;
+        double negFraction=0.0;
+        double zeroFraction=0.0;
+        DecimalFormat df=new DecimalFormat("0.000000");
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        int arrLen=arr.length;
+
+        for(int i=0;i<arrLen;i++){
+            if(arr[i]==0)
                 zeroNums++;
-            else if(arr[i] > 0)
+            else if(arr[i]>0)
                 posNums++;
             else
                 negNums++;
         }
-        posFraction = posNums/(arr.length);
-        negFraction = negNums/(arr.length);
-        zeroFraction = zeroNums/(arr.length);
-        System.out.println(df.format(posFraction) + "\n" + df.format(negFraction) + "\n" + df.format(zeroFraction));
+
+        posFraction=posNums/arrLen;
+        negFraction=negNums/arrLen;
+        zeroFraction=zeroNums/arrLen;
+
+        System.out.println(df.format(posFraction) + "\n" + 
+            df.format(negFraction) + "\n" + 
+            df.format(zeroFraction));
     }
 
     private static final Scanner scanner = new Scanner(System.in);
