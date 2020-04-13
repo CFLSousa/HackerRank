@@ -1,0 +1,31 @@
+<?php
+
+function simpleArraySum($ar) {
+    $sum = 0;
+    $arLen=count($ar);
+
+    for($i = 0; $i < $arLen; $i++){
+        $sum += $ar[$i];
+    }
+    
+    return $sum;
+}
+
+$fptr = fopen(getenv("OUTPUT_PATH"), "w");
+
+$stdin = fopen("php://stdin", "r");
+
+fscanf($stdin, "%d\n", $ar_count);
+
+fscanf($stdin, "%[^\n]", $ar_temp);
+
+$ar = array_map('intval', preg_split('/ /', $ar_temp, -1, PREG_SPLIT_NO_EMPTY));
+
+$result = simpleArraySum($ar);
+
+fwrite($fptr, $result . "\n");
+
+fclose($stdin);
+fclose($fptr);
+
+?>
